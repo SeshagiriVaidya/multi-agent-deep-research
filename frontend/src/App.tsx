@@ -4,6 +4,9 @@ import { ResearchResults } from './components/ResearchResults'
 import { LoadingProgress } from './components/LoadingProgress'
 import './App.css'
 
+// API URL from environment variable or default to localhost
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+
 export interface ResearchData {
   sources: Record<string, any>
   analysis: Record<string, any>
@@ -28,7 +31,7 @@ export const App: React.FC = () => {
     setProgress(0)
 
     try {
-      const response = await fetch('http://localhost:8000/api/research', {
+      const response = await fetch(`${API_URL}/api/research`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: q })
@@ -65,7 +68,7 @@ export const App: React.FC = () => {
     setProgress(0)
 
     try {
-      const response = await fetch('http://localhost:8000/api/research-stream', {
+      const response = await fetch(`${API_URL}/api/research-stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: q })
