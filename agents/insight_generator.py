@@ -6,7 +6,7 @@ Suggests hypotheses or trends using reasoning chains.
 import logging
 from typing import Dict, Any, List
 from langchain_core.prompts import ChatPromptTemplate
-from utils.llm_config import create_llm, INSIGHT_MODEL
+from utils.llm_config import create_insight_llm, INSIGHT_MODEL, TEMPERATURES
 
 logger = logging.getLogger(__name__)
 
@@ -14,9 +14,22 @@ logger = logging.getLogger(__name__)
 class InsightGenerationAgent:
     """Generates insights, hypotheses, and trends from analyzed sources."""
     
-    def __init__(self, model: str = None, temperature: float = 0.7):
-        """Initialize the insight generation agent with LLM via OpenRouter."""
-        self.llm = create_llm(model=model or INSIGHT_MODEL, temperature=temperature)
+    def __init__(self, model: str = None, temperature: float = None):
+        """Initialize the insight generation agent with LLM via OpenRouter.
+        
+        Uses GPT-4o for creative pattern matching and hypothesis generation.
+        Default temperature: 0.7 (higher creativity for trends).
+        """
+        # Use optimized insight LLM with GPT-4o
+        if model or temperature is not None:
+            from utils.llm_config import create_llm
+            self.llm = create_llm(
+                model=model or INSIGHT_MODEL,
+                temperature=temperature if temperature is not None else TEMPERATURES["insight"],
+                max_tokens=1500
+            )
+        else:
+            self.llm = create_insight_llm()
         if not self.llm:
             logger.warning("OpenRouter API key not found. Insights will use mock data.")
     
