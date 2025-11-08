@@ -37,10 +37,34 @@ def install_dependencies():
         print("❌ Failed to install dependencies")
         sys.exit(1)
 
+def check_venv():
+    """Check if virtual environment is activated."""
+    import sys
+    in_venv = hasattr(sys, 'real_prefix') or (
+        hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix
+    )
+    if not in_venv:
+        print("⚠️  WARNING: Virtual environment not detected!")
+        print()
+        print("It's recommended to use a virtual environment.")
+        print("Create one with:")
+        print("  Windows: python -m venv venv && venv\\Scripts\\activate")
+        print("  macOS/Linux: python3 -m venv venv && source venv/bin/activate")
+        print()
+        response = input("Continue anyway? (y/n): ")
+        if response.lower() != 'y':
+            print("Setup cancelled. Please activate virtual environment first.")
+            sys.exit(0)
+    else:
+        print("✅ Virtual environment detected")
+    print()
+
 def main():
     """Main setup function."""
     print("🚀 Setting up Multi-Agent AI Deep Researcher...")
     print()
+    
+    check_venv()
     
     create_env_file()
     print()
@@ -54,6 +78,8 @@ def main():
     print("1. Get your OpenRouter API key from: https://openrouter.ai/keys")
     print("2. Edit .env file and add your OPEN_ROUTER_KEY")
     print("3. Run: streamlit run app.py")
+    print()
+    print("📖 For detailed setup instructions, see VIRTUAL_ENV_SETUP.md")
     print()
 
 if __name__ == "__main__":

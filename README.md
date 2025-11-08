@@ -22,23 +22,44 @@ This system uses four specialized agents working in collaboration:
 
 1. **Clone or download this repository**
 
-2. **Install dependencies:**
-```bash
-pip install -r requirements.txt
-```
+2. **Create and activate virtual environment:**
 
-3. **Set up environment variables:**
-```bash
-cp env.example .env
-# Edit .env and add your OPEN_ROUTER_KEY
-```
+   **Windows:**
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate
+   ```
 
-4. **Run the application:**
-```bash
-streamlit run app.py
-```
+   **macOS/Linux:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set up environment variables:**
+   ```bash
+   # Windows
+   copy env.example .env
+   
+   # macOS/Linux
+   cp env.example .env
+   
+   # Edit .env and add your OPEN_ROUTER_KEY
+   ```
+
+5. **Run the application:**
+   ```bash
+   streamlit run app.py
+   ```
 
 The app will open in your browser at `http://localhost:8501`
+
+**📖 For detailed setup instructions, see `VIRTUAL_ENV_SETUP.md`**
 
 ## 📋 Features
 

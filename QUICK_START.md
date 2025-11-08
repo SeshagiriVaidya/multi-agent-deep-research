@@ -2,7 +2,23 @@
 
 ## 🚀 5-Minute Setup
 
-### Step 1: Install Dependencies
+### Step 1: Create Virtual Environment
+
+**Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+**macOS/Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+You should see `(venv)` in your prompt.
+
+### Step 2: Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
@@ -12,7 +28,7 @@ Or use the setup script:
 python setup.py
 ```
 
-### Step 2: Configure API Key
+### Step 3: Configure API Key
 1. Copy `env.example` to `.env` (or create `.env` file)
 2. Get your OpenRouter API key from https://openrouter.ai/keys
 3. Add to `.env`:
@@ -20,12 +36,26 @@ python setup.py
 OPEN_ROUTER_KEY=sk-or-your-key-here
 ```
 
-### Step 3: Run the Application
+### Step 4: Run the Application
 ```bash
 streamlit run app.py
 ```
 
 The app will open at `http://localhost:8501`
+
+**Note:** Make sure your virtual environment is activated (you should see `(venv)` in your prompt).
+
+### Deactivate Virtual Environment (When Done)
+```bash
+deactivate
+```
+
+---
+
+## 📖 Detailed Setup
+
+For complete step-by-step instructions with troubleshooting, see:
+- **`VIRTUAL_ENV_SETUP.md`** - Comprehensive virtual environment setup guide
 
 ## 🎯 Demo Mode
 
