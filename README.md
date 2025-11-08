@@ -16,7 +16,7 @@ This system uses four specialized agents working in collaboration:
 ### Prerequisites
 
 - Python 3.8+
-- OpenAI API key (or Anthropic API key)
+- OpenRouter API key (get from https://openrouter.ai/keys)
 
 ### Installation
 
@@ -29,8 +29,8 @@ pip install -r requirements.txt
 
 3. **Set up environment variables:**
 ```bash
-cp .env.example .env
-# Edit .env and add your OPENAI_API_KEY
+cp env.example .env
+# Edit .env and add your OPEN_ROUTER_KEY
 ```
 
 4. **Run the application:**
@@ -55,7 +55,7 @@ The app will open in your browser at `http://localhost:8501`
 - **LangChain**: Agent framework and LLM integration
 - **LangGraph**: Workflow orchestration
 - **Streamlit**: Web UI
-- **OpenAI GPT-4**: Primary LLM (configurable)
+- **OpenRouter**: Unified LLM API (supports OpenAI, Anthropic, Google, Meta, and more)
 
 ### Project Structure
 
@@ -97,20 +97,25 @@ To cache new results:
 
 ### LLM Settings
 
-Edit agent initialization in:
-- `agents/analyzer.py`
-- `agents/insight_generator.py`
-- `agents/report_builder.py`
+Edit model configuration in `utils/llm_config.py`:
+- `DEFAULT_MODEL` - Default model for all agents
+- `ANALYZER_MODEL` - Model for analysis agent
+- `INSIGHT_MODEL` - Model for insight generation
+- `REPORT_MODEL` - Model for report building
 
-Change model, temperature, etc. as needed.
+**OpenRouter Model Format:**
+- `openai/gpt-4-turbo-preview` - OpenAI GPT-4 Turbo
+- `anthropic/claude-3-opus` - Anthropic Claude 3 Opus
+- `google/gemini-pro` - Google Gemini Pro
+- `meta-llama/llama-2-70b-chat` - Meta Llama 2
+- See https://openrouter.ai/models for full list
 
 ### API Keys
 
 Required:
-- `OPENAI_API_KEY` - For LLM operations
+- `OPEN_ROUTER_KEY` - OpenRouter API key (get from https://openrouter.ai/keys)
 
 Optional:
-- `ANTHROPIC_API_KEY` - Alternative LLM provider
 - `NEWS_API_KEY` - Enhanced news search
 
 ## 📝 Usage Example
@@ -128,8 +133,10 @@ Optional:
 ## 🐛 Troubleshooting
 
 ### API Key Issues
-- Ensure `.env` file exists with `OPENAI_API_KEY`
+- Ensure `.env` file exists with `OPEN_ROUTER_KEY`
+- Get your key from https://openrouter.ai/keys
 - Check API key is valid and has credits
+- Verify model name format (e.g., `openai/gpt-4-turbo-preview`)
 
 ### Search Failures
 - DuckDuckGo search may be rate-limited

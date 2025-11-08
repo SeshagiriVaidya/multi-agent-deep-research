@@ -136,13 +136,14 @@ For hackathon presentations:
 ## 🔧 Configuration
 
 ### LLM Settings
-- Default: GPT-4 Turbo
-- Configurable in each agent file
+- Default: GPT-4 Turbo via OpenRouter
+- Configurable in `utils/llm_config.py`
 - Temperature settings optimized per agent
+- Supports multiple providers (OpenAI, Anthropic, Google, Meta, etc.)
 
 ### API Keys
-- Required: `OPENAI_API_KEY`
-- Optional: `ANTHROPIC_API_KEY`, `NEWS_API_KEY`
+- Required: `OPEN_ROUTER_KEY` (get from https://openrouter.ai/keys)
+- Optional: `NEWS_API_KEY`
 - System works with mock responses if no API key
 
 ## 📝 Demo Queries

@@ -59,12 +59,14 @@ def test_workflow():
 def test_api_key():
     """Check API key configuration."""
     print("\nChecking API key...")
-    api_key = os.getenv("OPENAI_API_KEY")
-    if api_key and api_key != "your_openai_api_key_here":
-        print("✅ OpenAI API key configured")
+    api_key = os.getenv("OPEN_ROUTER_KEY")
+    if api_key and api_key != "your_openrouter_key_here":
+        print("✅ OpenRouter API key configured")
+        print(f"   Using OpenRouter endpoint: https://openrouter.ai/api/v1")
         return True
     else:
-        print("⚠️  OpenAI API key not configured (will use mock responses)")
+        print("⚠️  OpenRouter API key not configured (will use mock responses)")
+        print("   Get your key from: https://openrouter.ai/keys")
         return False
 
 def main():

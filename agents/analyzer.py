@@ -5,12 +5,8 @@ Summarizes findings, highlights contradictions, and validates sources.
 
 import logging
 from typing import Dict, Any, List
-from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from utils.llm_config import create_llm, ANALYZER_MODEL
 
 logger = logging.getLogger(__name__)
 
@@ -18,14 +14,11 @@ logger = logging.getLogger(__name__)
 class CriticalAnalysisAgent:
     """Analyzes retrieved sources for contradictions, credibility, and key findings."""
     
-    def __init__(self, model: str = "gpt-4-turbo-preview", temperature: float = 0.3):
-        """Initialize the analysis agent with LLM."""
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            logger.warning("OPENAI_API_KEY not found. Analysis will use mock data.")
-            self.llm = None
-        else:
-            self.llm = ChatOpenAI(model=model, temperature=temperature)
+    def __init__(self, model: str = None, temperature: float = 0.3):
+        """Initialize the analysis agent with LLM via OpenRouter."""
+        self.llm = create_llm(model=model or ANALYZER_MODEL, temperature=temperature)
+        if not self.llm:
+            logger.warning("OpenRouter API key not found. Analysis will use mock data.")
     
     def analyze(self, sources: Dict[str, Any]) -> Dict[str, Any]:
         """

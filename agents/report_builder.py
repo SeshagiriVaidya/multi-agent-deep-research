@@ -5,12 +5,8 @@ Compiles all insights into a structured report.
 
 import logging
 from typing import Dict, Any
-from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from utils.llm_config import create_llm, REPORT_MODEL
 
 logger = logging.getLogger(__name__)
 
@@ -18,14 +14,11 @@ logger = logging.getLogger(__name__)
 class ReportBuilderAgent:
     """Compiles research findings into a structured markdown report."""
     
-    def __init__(self, model: str = "gpt-4-turbo-preview", temperature: float = 0.3):
-        """Initialize the report builder agent with LLM."""
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            logger.warning("OPENAI_API_KEY not found. Report will use template.")
-            self.llm = None
-        else:
-            self.llm = ChatOpenAI(model=model, temperature=temperature)
+    def __init__(self, model: str = None, temperature: float = 0.3):
+        """Initialize the report builder agent with LLM via OpenRouter."""
+        self.llm = create_llm(model=model or REPORT_MODEL, temperature=temperature)
+        if not self.llm:
+            logger.warning("OpenRouter API key not found. Report will use template.")
     
     def compile(self, query: str, sources: Dict[str, Any], 
                 analysis: Dict[str, Any], insights: Dict[str, Any]) -> str:

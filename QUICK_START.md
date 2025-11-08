@@ -13,10 +13,11 @@ python setup.py
 ```
 
 ### Step 2: Configure API Key
-1. Copy `.env.example` to `.env` (or create `.env` file)
-2. Add your OpenAI API key:
+1. Copy `env.example` to `.env` (or create `.env` file)
+2. Get your OpenRouter API key from https://openrouter.ai/keys
+3. Add to `.env`:
 ```
-OPENAI_API_KEY=sk-your-key-here
+OPEN_ROUTER_KEY=sk-or-your-key-here
 ```
 
 ### Step 3: Run the Application
@@ -45,7 +46,8 @@ Try these queries:
 
 **No API Key?**
 - System will use mock/template responses
-- Full functionality requires OpenAI API key
+- Full functionality requires OpenRouter API key
+- Get your key from https://openrouter.ai/keys
 
 **Search Not Working?**
 - DuckDuckGo may be rate-limited
